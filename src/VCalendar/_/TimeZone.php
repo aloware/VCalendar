@@ -2,6 +2,8 @@
 
 namespace Davaxi\VCalendar\_;
 
+use DateTimeZone;
+
 /**
  * Trait TimeZone
  * @package Davaxi\VCalendar\_
@@ -18,7 +20,7 @@ Trait TimeZone
      */
     public function setTimeZone($timeZone)
     {
-        if (!in_array($timeZone, timezone_identifiers_list())) {
+        if (!in_array($timeZone, timezone_identifiers_list(DateTimeZone::ALL_WITH_BC))) {
             throw new \InvalidArgumentException('Invalid timeZone: ' . $timeZone);
         }
         $this->timeZone = $timeZone;
