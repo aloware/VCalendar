@@ -18,9 +18,13 @@ Trait TimeZone
     /**
      * @param $timeZone string
      */
-    public function setTimeZone($timeZone)
+    public function setTimeZone($timeZone, $acceptOutdated = false)
     {
-        if (!in_array($timeZone, timezone_identifiers_list(DateTimeZone::ALL_WITH_BC))) {
+        $timezoneGroup = DateTimeZone::ALL;
+        if ($acceptOutdated) {
+            $timezoneGroup = DateTimeZone::ALL_WITH_BC;
+        }
+        if (!in_array($timeZone, timezone_identifiers_list($timezoneGroup))) {
             throw new \InvalidArgumentException('Invalid timeZone: ' . $timeZone);
         }
         $this->timeZone = $timeZone;
